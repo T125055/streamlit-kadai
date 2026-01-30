@@ -50,4 +50,4 @@ df2 = df2[(df2['年'] >= year_range[0]) &
             (df2['年'] <= year_range[1])]
 
 st.dataframe(df2, width=800, height=200)
-st.line_chart(df2.T)
+st.line_chart(df2)
