@@ -38,7 +38,6 @@ st.subheader(f'{year}年 都道府県別死亡数')
 st.dataframe(df, width=800, height=200)
 st.bar_chart(df)
 
-df = df[df['都道府県'].isin(branch)]
 df = df_long[(df['年'] >= year_range[0]) &
             (df['年'] <= year_range[1])]
 
