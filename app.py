@@ -16,10 +16,13 @@ with st.sidebar:
     branch = st.multiselect('都道府県を選択してください（複数選択可）',
                             df['都道府県'].unique())
     
-    year = st.slider(label='年を選択してください',
+    year = st.multiselect('年を選択してください',
+                          df['年'].unique())
+
+    year_range = st.slider(label='年を選択してください',
                         min_value= 1975,
                         max_value= 2024,
-                        value=2000 )
+                        value=(1990, 2015) )
 
 df = df_long.copy()
 
@@ -27,6 +30,17 @@ df = df[df['都道府県'].isin(branch)]
 df = df[df['年'] == year]
 
 df.drop('年', axis=1, inplace=True)
+df.set_index('都道府県', inplace=True)
+
+st.write('')
+st.dataframe(df, width=800, height=200)
+st.line_chart(df)
+
+df = df[df['都道府県'].isin(branch)]
+df = df[
+    (df['年'] >= year_range[0]) &
+    (df['年'] <= year_range[1])]
+
 df.set_index('都道府県', inplace=True)
 
 st.dataframe(df, width=800, height=200)
