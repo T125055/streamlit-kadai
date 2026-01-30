@@ -5,6 +5,7 @@ st.title('都道府県別にみた年別死亡数')
 
 df = pd.read_csv('people.csv', encoding='cp932')
 
+# 縦長に変換
 df_long = df.melt(
     id_vars='都道府県',
     var_name='年',
@@ -12,14 +13,16 @@ df_long = df.melt(
 
 df_long['年'] = df_long['年'].astype(int)
 
+# 年のリスト
+years = sorted(df_long['年'].unique())
+
+
 with st.sidebar:
     branch = st.multiselect('都道府県を選択してください（複数選択可）',
                             df['都道府県'].unique())
     
-    year = st.slider('表示する年を選択してください',
-                    min_value=1975,
-                    max_value=2024,
-                    value=2024)
+    year = st.selectbox('表示する年を選択してください',
+                    years)
 
     year_range = st.slider(label='年を選択してください',
                         min_value= 1975,
@@ -38,8 +41,9 @@ st.subheader(f'{year}年 都道府県別死亡数')
 st.dataframe(df, width=800, height=200)
 st.bar_chart(df)
 
-df = df_long[(df['年'] >= year_range[0]) &
-            (df['年'] <= year_range[1])]
 
-st.dataframe(df, width=800, height=200)
-st.line_chart(df)
+df2 = df_long[(df_long['年'] >= year_range[0]) &
+            (df_long['年'] <= year_range[1])]
+
+st.dataframe(df2, width=800, height=200)
+st.line_chart(df2)
