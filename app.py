@@ -28,6 +28,9 @@ with st.sidebar:
                         min_value= 1975,
                         max_value= 2024,
                         value=(1990, 2015) )
+    
+    range_mode = st.checkbox('年の推移を表示する')
+
 
 df = df_long.copy()
 
@@ -41,9 +44,10 @@ st.subheader(f'{year}年 都道府県別死亡数')
 st.dataframe(df, width=800, height=200)
 st.bar_chart(df)
 
-
-df2 = df_long[(df_long['年'] >= year_range[0]) &
-            (df_long['年'] <= year_range[1])]
+df2 = df_long.copy
+df2 =  df_long[df_long['都道府県'].isin(branch)]
+df2 = df2[(df2['年'] >= year_range[0]) &
+            (df2['年'] <= year_range[1])]
 
 st.dataframe(df2, width=800, height=200)
 st.line_chart(df2)
