@@ -8,13 +8,16 @@ df = pd.read_csv('park.csv')
 with st.sidebar:
     branch = st.multiselect('公園分類を選択してください（複数選択可）',
                             df['公園分類'].unique())
-    year = st.number_input('年次を選択してください',
-                           min_value=df['年次'].min(),
-                           max_value=df['年次'].max(),
-                           value=df['年次'].min(),
-                           step=1)
+    year = st.slider('年を選択してください',
+                     min_value=df['年次'].min(),
+                     max_value=df['年次'].max(),
+                     value=df['年次'].min(),
+                     step=1)
     
-df = df[df['支店'].isin(branch)]
+df = df[df['公園分類'].isin(branch)]
 df = df[df['年次']==year]
 df.drop('年次',axis=1,inplace=True)
-df.set_index('支店',inplace=True)
+df.set_index('公園分類',inplace=True)
+
+st.dataframe(df, width=800, height=200)
+st.line_chart(df)
