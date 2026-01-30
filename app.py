@@ -5,6 +5,8 @@ st.title('自然公園の公園数と年間利用者数')
 
 df = pd.read_csv('park.csv')
 
+df['年次'] = df['年次'].dropna()
+
 with st.sidebar:
     branch = st.multiselect('公園分類を選択してください（複数選択可）',
                             df['公園分類'].unique())
