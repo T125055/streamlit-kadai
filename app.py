@@ -44,7 +44,7 @@ st.dataframe(df, width=800, height=200)
 st.bar_chart(df)
 
 if range_mode:
-    df2 = df_long.copy
+    df2 = df_long.copy()
     df2 =  df2[df2['都道府県'].isin(branch)]
     df2 = df2[(df2['年'] >= year_range[0]) &
             (df2['年'] <= year_range[1])]
@@ -55,4 +55,4 @@ if range_mode:
         columns='都道府県',
         values='死亡数'
     )
-    st.line_chart(df2)
+    st.line_chart(df_chart)
