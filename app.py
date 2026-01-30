@@ -28,7 +28,6 @@ with st.sidebar:
     
     range_mode = st.checkbox('年の推移を表示する')
     if range_mode:
-            st.badge("年の推移モード", icon="📈")
             year_range = st.slider(label='表示する年の範囲を選択してください',
                         min_value= 1975,
                         max_value= 2024,
