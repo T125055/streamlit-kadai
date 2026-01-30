@@ -5,7 +5,9 @@ st.title('自然公園の公園数と年間利用者数')
 
 df = pd.read_csv('park.csv')
 
-df['年次'] = df['年次'].dropna()
+df['年次'] = pd.to_numeric(df['年次'], errors='coerce')
+df = df.dropna(subset=['年次'])
+df['年次'] = df['年次'].astype(int)
 
 with st.sidebar:
     branch = st.multiselect('公園分類を選択してください（複数選択可）',
@@ -16,6 +18,9 @@ with st.sidebar:
                      value=int(df['年次'].min()),
                      step=1)
     
+if branch:
+    df = df[df['公園分類'].isin(branch)]
+
 df = df[df['公園分類'].isin(branch)]
 df = df[df['年次']==year]
 df.drop('年次',axis=1,inplace=True)
