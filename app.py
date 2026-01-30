@@ -43,15 +43,16 @@ st.subheader(f'{year}年 都道府県別死亡数')
 st.dataframe(df, width=800, height=200)
 st.bar_chart(df)
 
-df2 = df_long.copy
-df2 =  df_long[df_long['都道府県'].isin(branch)]
-df2 = df2[(df2['年'] >= year_range[0]) &
+if range_mode:
+    df2 = df_long.copy
+    df2 =  df_long[df_long['都道府県'].isin(branch)]
+    df2 = df2[(df2['年'] >= year_range[0]) &
             (df2['年'] <= year_range[1])]
 
-st.subheader('推移')
-df_chart = df.pivot(
-    index='年',
-    columns='都道府県',
-    values='死亡数'
-)
-st.line_chart(df2)
+    st.subheader('推移')
+    df_chart = df.pivot(
+        index='年',
+        columns='都道府県',
+        values='死亡数'
+    )
+    st.line_chart(df2)
