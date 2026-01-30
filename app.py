@@ -21,7 +21,6 @@ with st.sidebar:
 if branch:
     df = df[df['公園分類'].isin(branch)]
 
-df = df[df['公園分類'].isin(branch)]
 df = df[df['年次']==year]
 df.drop('年次',axis=1,inplace=True)
 df.set_index('公園分類',inplace=True)
